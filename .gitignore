@@ -1,0 +1,9 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Environment files (add these if not already present)
+.env*
+.env.local
+.env.development
+.env.production

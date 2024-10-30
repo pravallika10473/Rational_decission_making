@@ -1,0 +1,16 @@
+.chat-item {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.rename-input {
+  width: 100%;
+  padding: 4px;
+}
+
+.rename-input input {
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
