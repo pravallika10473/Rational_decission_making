@@ -112,14 +112,17 @@ Your task as a group is to list the above 12 items in order of importance for yo
 
     updateChat(updatedChat);
 
+    // If no-model is selected, don't make API call
+    if (model === 'no-model') {
+      return;
+    }
+
     try {
       const response = await getChatCompletion(model, updatedChat.messages, systemMessage);
-      
       const chatWithResponse = {
         ...updatedChat,
         messages: [...updatedChat.messages, response]
       };
-      
       updateChat(chatWithResponse);
     } catch (error) {
       console.error('Error getting chat completion:', error);
