@@ -5,7 +5,7 @@ const client = new OpenAI({
   dangerouslyAllowBrowser: true
 });
 
-export const getChatCompletion = async (model, messages) => {
+export const getChatCompletion = async (model, messages, systemMessage) => {
   try {
     if (!process.env.REACT_APP_OPENAI_API_KEY) {
       throw new Error('OpenAI API key is not configured');
@@ -14,7 +14,7 @@ export const getChatCompletion = async (model, messages) => {
     const completion = await client.chat.completions.create({
       model: model,
       messages: [
-        { role: "system", content: "You are a helpful assistant." },
+        { role: "system", content: systemMessage },
         ...messages
       ]
     });

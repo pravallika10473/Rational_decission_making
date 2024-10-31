@@ -103,4 +103,55 @@
 .message h3 {
   margin: 15px 0 10px 0;
   text-align: left;
+}
+
+.system-message {
+  padding: 10px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.system-message-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-height: 60px;
+  resize: vertical;
+}
+
+.system-message-container {
+  padding: 10px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.system-message-toggle {
+  padding: 8px 16px;
+  background: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.system-message-toggle:hover {
+  background: #218838;
+}
+
+.system-message {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.system-message-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-height: 60px;
+  resize: vertical;
 } 

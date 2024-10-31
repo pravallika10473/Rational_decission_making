@@ -3,8 +3,16 @@ import ModelSelector from './ModelSelector';
 import MessageFormatter from './MessageFormatter';
 import './ChatWindow.css';
 
-function ChatWindow({ currentChat, selectedModel, onSendMessage, onSelectModel }) {
+function ChatWindow({ 
+  currentChat, 
+  selectedModel, 
+  systemMessage,
+  onSystemMessageChange,
+  onSendMessage, 
+  onSelectModel 
+}) {
   const [message, setMessage] = useState('');
+  const [showSystemMessage, setShowSystemMessage] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +24,24 @@ function ChatWindow({ currentChat, selectedModel, onSendMessage, onSelectModel }
 
   return (
     <div className="chat-window">
+      <div className="system-message-container">
+        <button 
+          className="system-message-toggle"
+          onClick={() => setShowSystemMessage(!showSystemMessage)}
+        >
+          {showSystemMessage ? 'Hide System Message' : 'Show System Message'}
+        </button>
+        {showSystemMessage && (
+          <div className="system-message">
+            <textarea
+              value={systemMessage}
+              onChange={(e) => onSystemMessageChange(e.target.value)}
+              placeholder="Enter system message..."
+              className="system-message-input"
+            />
+          </div>
+        )}
+      </div>
       <div className="messages">
         {currentChat?.messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>

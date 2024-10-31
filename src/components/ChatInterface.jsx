@@ -8,6 +8,7 @@ function ChatInterface() {
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo');
+  const [systemMessage, setSystemMessage] = useState("You are a helpful assistant.");
 
   useEffect(() => {
     // Load chats from IndexedDB
@@ -47,25 +48,27 @@ function ChatInterface() {
     setCurrentChat(newChat);
   };
 
+  const handleSystemMessageChange = (newMessage) => {
+    setSystemMessage(newMessage);
+  };
+
   const sendMessage = async (message, model) => {
     if (!currentChat) return;
 
     const updatedChat = {
       ...currentChat,
+      systemMessage: systemMessage,
       messages: [
         ...currentChat.messages,
         { role: 'user', content: message }
       ]
     };
 
-    // Update UI with user message immediately
     updateChat(updatedChat);
 
     try {
-      // Get response from OpenAI
-      const response = await getChatCompletion(model, updatedChat.messages);
+      const response = await getChatCompletion(model, updatedChat.messages, systemMessage);
       
-      // Update chat with AI response
       const chatWithResponse = {
         ...updatedChat,
         messages: [...updatedChat.messages, response]
@@ -74,7 +77,6 @@ function ChatInterface() {
       updateChat(chatWithResponse);
     } catch (error) {
       console.error('Error getting chat completion:', error);
-      // Add error message to the chat
       const chatWithError = {
         ...updatedChat,
         messages: [...updatedChat.messages, {
@@ -128,6 +130,8 @@ function ChatInterface() {
       <ChatWindow 
         currentChat={currentChat}
         selectedModel={selectedModel}
+        systemMessage={systemMessage}
+        onSystemMessageChange={handleSystemMessageChange}
         onSendMessage={sendMessage}
         onSelectModel={setSelectedModel}
       />
