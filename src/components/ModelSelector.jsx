@@ -3,7 +3,8 @@ import React from 'react';
 function ModelSelector({ selectedModel, onSelectModel }) {
   const models = [
     'gpt-4o',
-    'gpt-4'
+    'gpt-4',
+    'claude-2.1'
   ];
 
   return (

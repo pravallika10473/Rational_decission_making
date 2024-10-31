@@ -27,4 +27,20 @@ export const loadMessages = async () => {
 export const clearMessages = async () => {
   const db = await initDB();
   await db.delete(storeName, 'messages');
+};
+
+export const saveFolders = async (folders) => {
+  const db = await initDB();
+  await db.put(storeName, folders, 'folders');
+};
+
+export const loadFolders = async () => {
+  const db = await initDB();
+  const folders = await db.get(storeName, 'folders');
+  return folders || [
+    { id: 'root', name: 'All Chats', parentId: null },
+    { id: 'no-model', name: 'No Model', parentId: 'root' },
+    { id: 'claude', name: 'Claude Chats', parentId: 'root' },
+    { id: 'gpt', name: 'GPT Chats', parentId: 'root' }
+  ];
 }; 
