@@ -1,7 +1,10 @@
 import React from 'react';
 
 function ModelSelector({ selectedModel, onSelectModel }) {
-  const models = ['gpt-3.5-turbo', 'gpt-4', 'claude-v1', 'claude-v2'];
+  const models = [
+    'gpt-4o',
+    'gpt-4'
+  ];
 
   return (
     <select 

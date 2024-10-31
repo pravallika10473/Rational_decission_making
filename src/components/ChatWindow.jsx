@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ModelSelector from './ModelSelector';
+import MessageFormatter from './MessageFormatter';
 import './ChatWindow.css';
 
 function ChatWindow({ currentChat, selectedModel, onSendMessage, onSelectModel }) {
@@ -18,7 +19,7 @@ function ChatWindow({ currentChat, selectedModel, onSendMessage, onSelectModel }
       <div className="messages">
         {currentChat?.messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
-            {msg.content}
+            <MessageFormatter content={msg.content} />
           </div>
         ))}
       </div>

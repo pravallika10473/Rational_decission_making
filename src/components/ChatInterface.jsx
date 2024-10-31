@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ChatHistory from './ChatHistory';
 import ChatWindow from './ChatWindow';
 import { saveMessages, loadMessages, clearMessages } from '../services/storageService';
+import { getChatCompletion } from '../services/chatService';
 
 function ChatInterface() {
   const [chats, setChats] = useState([]);
@@ -46,7 +47,7 @@ function ChatInterface() {
     setCurrentChat(newChat);
   };
 
-  const sendMessage = (message, model) => {
+  const sendMessage = async (message, model) => {
     if (!currentChat) return;
 
     const updatedChat = {
@@ -57,17 +58,32 @@ function ChatInterface() {
       ]
     };
 
-    // Here you would typically send the message to your API
-    // and wait for a response before updating the chat
-    setTimeout(() => {
-      updatedChat.messages.push({
-        role: 'assistant',
-        content: `This is a simulated response from ${model}.`
-      });
-      updateChat(updatedChat);
-    }, 1000);
-
+    // Update UI with user message immediately
     updateChat(updatedChat);
+
+    try {
+      // Get response from OpenAI
+      const response = await getChatCompletion(model, updatedChat.messages);
+      
+      // Update chat with AI response
+      const chatWithResponse = {
+        ...updatedChat,
+        messages: [...updatedChat.messages, response]
+      };
+      
+      updateChat(chatWithResponse);
+    } catch (error) {
+      console.error('Error getting chat completion:', error);
+      // Add error message to the chat
+      const chatWithError = {
+        ...updatedChat,
+        messages: [...updatedChat.messages, {
+          role: 'assistant',
+          content: error.message || 'Sorry, there was an error processing your request.'
+        }]
+      };
+      updateChat(chatWithError);
+    }
   };
 
   const updateChat = (updatedChat) => {
