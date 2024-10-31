@@ -8,10 +8,9 @@ function ModelSelector({ selectedModel, onSelectModel }) {
       className="model-selector"
     >
       <option value="no-model">No Model</option>
-      <option value="gpt-3.5-turbo">GPT-3.5</option>
+      <option value="gpt-4o">GPT-4o</option>
       <option value="gpt-4">GPT-4</option>
-      <option value="claude-3-opus">Claude 3 Opus</option>
-      <option value="claude-3-sonnet">Claude 3 Sonnet</option>
+      <option value="claude-3-5-sonnet-20240620">Claude 3.5 Sonnet</option>
     </select>
   );
 }
