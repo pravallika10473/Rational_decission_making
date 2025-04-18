@@ -1,0 +1,211 @@
+.survival-ranking {
+  padding: 20px;
+}
+
+.survival-ranking h2 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.instructions {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.ranking-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ranking-row {
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.ranking-row.dragging {
+  opacity: 0.5;
+  transform: scale(0.98);
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  flex: 1;
+  cursor: grab;
+  border: 1px solid #e0e0e0;
+}
+
+.ranking-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+  border-color: #4a90e2;
+}
+
+.ranking-item:active {
+  cursor: grabbing;
+}
+
+.rank-number {
+  font-weight: bold;
+  color: #666;
+  min-width: 25px;
+}
+
+.item-select {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.drag-handle {
+  color: #999;
+  cursor: grab;
+  padding: 4px;
+  font-size: 1.2rem;
+  user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.item-select:hover {
+  border-color: #999;
+}
+
+.item-select:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.item-select option {
+  padding: 8px;
+  background-color: white;
+}
+
+.item-select option:hover {
+  background-color: #f5f5f5;
+}
+
+.swap-button {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.swap-button:hover {
+  color: #4a90e2;
+  opacity: 1;
+  background-color: #f0f7ff;
+}
+
+.swap-button:active {
+  transform: scale(0.95);
+}
+
+.clear-button {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.clear-button:hover {
+  color: #ff4444;
+  background-color: #fff5f5;
+}
+
+.submit-button {
+  display: block;
+  width: 200px;
+  padding: 12px;
+  margin: 20px auto;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.submit-button:hover {
+  background-color: #357abd;
+  transform: translateY(-1px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submission-success {
+  text-align: center;
+  padding: 20px;
+}
+
+.submission-success h2 {
+  color: #28a745;
+  margin-bottom: 15px;
+}
+
+.submission-success p {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.username-input {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.username-input input {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 200px;
+  text-align: center;
+}
+
+.username-input input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+} 

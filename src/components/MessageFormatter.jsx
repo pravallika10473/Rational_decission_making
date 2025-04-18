@@ -1,22 +1,23 @@
 import React from 'react';
 
 function MessageFormatter({ content }) {
-  // Convert numbered lists to proper HTML ordered lists
   const formatContent = (text) => {
-    // Split text into paragraphs
     const paragraphs = text.split('\n\n');
     
     return paragraphs.map((paragraph, index) => {
-      // Check if paragraph is a numbered list
-      if (paragraph.match(/^\d+\./m)) {
-        const items = paragraph.split('\n').filter(item => item.trim());
+      // Check if this is the list section
+      if (paragraph.includes('1. A ball of steel wool')) {
+        const [header, ...items] = paragraph.split('\n');
         return (
-          <ol key={index}>
-            {items.map((item, i) => {
-              const cleanItem = item.replace(/^\d+\.\s*/, '');
-              return <li key={i}>{cleanItem}</li>;
-            })}
-          </ol>
+          <React.Fragment key={index}>
+            <p>{header}</p>
+            <ol>
+              {items.map((item, i) => {
+                const cleanItem = item.replace(/^\d+\.\s*/, '');
+                return <li key={i}>{cleanItem}</li>;
+              })}
+            </ol>
+          </React.Fragment>
         );
       }
       return <p key={index}>{paragraph}</p>;

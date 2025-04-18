@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ChatHistory from './ChatHistory';
 import ChatWindow from './ChatWindow';
+import SurvivalRanking from './SurvivalRanking';
 import { saveMessages, loadMessages, clearMessages, saveFolders, loadFolders } from '../services/storageService';
 import { getChatCompletion } from '../services/chatService';
 
@@ -185,27 +186,69 @@ Your task as a group is to list the above 12 items in order of importance for yo
     saveFolders(updatedFolders);
   };
 
+  const handleRankingsSubmit = (rankings) => {
+    // Format the rankings into a message
+    const rankingMessage = rankings
+      .map(({ rank, item }) => `${rank}. ${item}`)
+      .join('\n');
+
+    // Create a new chat message with the rankings
+    const message = {
+      role: 'user',
+      content: `Here are my rankings for the survival items:\n\n${rankingMessage}`
+    };
+
+    // If there's no current chat, create one
+    if (!currentChat) {
+      const newChat = {
+        id: Date.now(),
+        name: 'Survival Rankings',
+        folderId: 'root',
+        messages: [message]
+      };
+      setChats([newChat, ...chats]);
+      setCurrentChat(newChat);
+    } else {
+      // Add to existing chat
+      const updatedChat = {
+        ...currentChat,
+        messages: [...currentChat.messages, message]
+      };
+      updateChat(updatedChat);
+    }
+
+    // Send the message to get AI response
+    sendMessage(message.content, selectedModel);
+  };
+
   return (
     <div className="chat-interface">
-      <ChatHistory 
-        chats={chats} 
-        folders={folders}
-        currentChat={currentChat}
-        onSelectChat={setCurrentChat}
-        onCreateNewChat={createNewChat}
-        onDeleteChat={handleDeleteChat}
-        onRenameChat={renameChat}
-        onRenameFolder={handleRenameFolder}
-        onCreateFolder={createNewFolder}
-      />
-      <ChatWindow 
-        currentChat={currentChat}
-        selectedModel={selectedModel}
-        systemMessage={systemMessage}
-        onSystemMessageChange={setSystemMessage}
-        onSendMessage={sendMessage}
-        onSelectModel={setSelectedModel}
-      />
+      <div className="left-section">
+        <ChatHistory 
+          chats={chats} 
+          folders={folders}
+          currentChat={currentChat}
+          onSelectChat={setCurrentChat}
+          onCreateNewChat={createNewChat}
+          onDeleteChat={handleDeleteChat}
+          onRenameChat={renameChat}
+          onRenameFolder={handleRenameFolder}
+          onCreateFolder={createNewFolder}
+        />
+      </div>
+      <div className="middle-section">
+        <ChatWindow 
+          currentChat={currentChat}
+          selectedModel={selectedModel}
+          systemMessage={systemMessage}
+          onSystemMessageChange={setSystemMessage}
+          onSendMessage={sendMessage}
+          onSelectModel={setSelectedModel}
+        />
+      </div>
+      <div className="right-section">
+        <SurvivalRanking onRankingsSubmit={handleRankingsSubmit} />
+      </div>
     </div>
   );
 }
