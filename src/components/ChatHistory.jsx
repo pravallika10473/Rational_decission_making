@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ChatHistory.css';
+import SurveyModal from './SurveyModal';
 
 function ChatHistory({ 
   chats, 
@@ -19,6 +20,7 @@ function ChatHistory({
   const [expandedFolders, setExpandedFolders] = useState(['root']);
   const [newFolderName, setNewFolderName] = useState('');
   const [showNewFolderInput, setShowNewFolderInput] = useState(false);
+  const [isSurveyOpen, setIsSurveyOpen] = useState(false);
 
   const toggleFolder = (folderId) => {
     setExpandedFolders(prev => 
@@ -195,6 +197,10 @@ function ChatHistory({
         )}
       </div>
       {renderFolder('root')}
+      <button onClick={() => setIsSurveyOpen(true)} className="submit-survey-button">
+        Submit Survey
+      </button>
+      <SurveyModal isOpen={isSurveyOpen} onClose={() => setIsSurveyOpen(false)} />
     </div>
   );
 }
