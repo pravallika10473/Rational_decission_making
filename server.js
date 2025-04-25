@@ -1,27 +1,23 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 const path = require('path');
+const connectDB = require('./config/db');
+const Ranking = require('./models/Ranking');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Connect to MongoDB
+connectDB();
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Store rankings in a JSON file
-const rankingsFile = path.join(__dirname, 'rankings.json');
-
-// Ensure the rankings file exists
-if (!fs.existsSync(rankingsFile)) {
-  fs.writeFileSync(rankingsFile, JSON.stringify([]));
-}
-
 // API endpoint to submit rankings
-app.post('/api/rankings', (req, res) => {
+app.post('/api/rankings', async (req, res) => {
   try {
     console.log('Received request body:', JSON.stringify(req.body, null, 2));
     
@@ -50,18 +46,15 @@ app.post('/api/rankings', (req, res) => {
       return { rank, item };
     });
     
-    // Read existing rankings
-    const existingRankings = JSON.parse(fs.readFileSync(rankingsFile));
-    
-    // Add new ranking
-    existingRankings.push({
+    // Create new ranking document
+    const newRanking = new Ranking({
       username: username.trim(),
       rankings: processedRankings,
-      timestamp: timestamp || new Date().toISOString()
+      timestamp: timestamp || new Date()
     });
     
-    // Save back to file
-    fs.writeFileSync(rankingsFile, JSON.stringify(existingRankings, null, 2));
+    // Save to database
+    await newRanking.save();
     
     res.status(200).json({ message: 'Rankings submitted successfully' });
   } catch (error) {
@@ -70,10 +63,18 @@ app.post('/api/rankings', (req, res) => {
   }
 });
 
-// API endpoint to get all rankings
-app.get('/api/rankings', (req, res) => {
+// API endpoint to get rankings for a specific user
+app.get('/api/rankings/:username', async (req, res) => {
   try {
-    const rankings = JSON.parse(fs.readFileSync(rankingsFile));
+    const { username } = req.params;
+    
+    const rankings = await Ranking.find({ username: username.trim() })
+      .sort({ timestamp: -1 });
+    
+    if (!rankings.length) {
+      return res.status(404).json({ error: 'No rankings found for this user' });
+    }
+    
     res.status(200).json(rankings);
   } catch (error) {
     console.error('Error reading rankings:', error);

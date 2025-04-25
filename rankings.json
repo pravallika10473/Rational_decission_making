@@ -52,5 +52,59 @@
       }
     ],
     "timestamp": "2025-04-18T07:33:03.582Z"
+  },
+  {
+    "username": "pravallika",
+    "rankings": [
+      {
+        "rank": "1",
+        "item": "A ball of steel wool"
+      },
+      {
+        "rank": "2",
+        "item": "A small axe"
+      },
+      {
+        "rank": "3",
+        "item": "A loaded pistol"
+      },
+      {
+        "rank": "4",
+        "item": "Can of vegetable oil"
+      },
+      {
+        "rank": "5",
+        "item": "Newspapers (one per person)"
+      },
+      {
+        "rank": "6",
+        "item": "Cigarette lighter (without fluid)"
+      },
+      {
+        "rank": "7",
+        "item": "Extra shirt and pants for each survivor"
+      },
+      {
+        "rank": "8",
+        "item": "20 x 20 ft. piece of heavy-duty canvas"
+      },
+      {
+        "rank": "9",
+        "item": "An air map made of plastic"
+      },
+      {
+        "rank": "10",
+        "item": "Some whiskey"
+      },
+      {
+        "rank": "11",
+        "item": "A compass"
+      },
+      {
+        "rank": "12",
+        "item": "Family-size chocolate bars (one per person)"
+      }
+    ],
+    "timestamp": "2025-04-18T07:40:32.649Z"
   }
 ]
