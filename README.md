@@ -61,8 +61,8 @@ A full-stack web application for managing and analyzing decision-making processe
    ```
    PORT=3001
    MONGODB_URI=your_mongodb_connection_string
-   ANTHROPIC_API_KEY=your_anthropic_api_key
-   OPENAI_API_KEY=your_openai_api_key
+   REACT_APP_ANTHROPIC_API_KEY=your_anthropic_api_key
+   REACT_APP_OPENAI_API_KEY=your_openai_api_key
    ```
 
 4. Start the development server:
